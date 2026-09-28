@@ -22,3 +22,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Editors
+.vscode/
+.idea/
+*.iml/
+
+# Python (plotting scripts)
+__pycache__/
+.venv/
+
+# Generated benchmark data / plots
+data/generated/
+plots/
+
+# Personal Claude Code settings (shared ones in .claude/settings.json ARE committed)
+.claude/settings.local.json
