@@ -26,7 +26,8 @@ replay_pid*
 # Editors
 .vscode/
 .idea/
-*.iml/
+*.iml
+target/
 
 # Python (plotting scripts)
 __pycache__/

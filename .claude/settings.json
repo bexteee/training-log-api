@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(**/*.java)",
+      "Write(**/*.java)",
+      "Edit(**/*.py)",
+      "Write(**/*.py)",
+      "Edit(**/*.ipynb)",
+      "Write(**/*.ipynb)",
+      "NotebookEdit"
+    ],
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(mvn test:*)",
+      "Bash(mvn -q test:*)",
+      "Bash(mvn compile:*)"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/log_prompt.py\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard_shell.py\""
+          }
+        ]
+      }
+    ]
+  }
+}
