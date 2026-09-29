@@ -35,6 +35,7 @@ The files under `.claude/` are team tooling, not project code, and their creatio
 ## AI-use log
 
 Every prompt is recorded automatically in `docs/ai-log/prompts-<name>.md` (UserPromptSubmit hook).
+This folder is gitignored: each member's log stays on their own machine and is never committed.
 Use it to write the Sprint 3/4 disclosure entries: tool, purpose, what was used vs. changed/corrected.
 When a session produces something the team adopts, remind the user to add a disclosure entry.
 
