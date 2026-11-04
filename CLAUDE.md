@@ -131,13 +131,45 @@ He agreed his plans can be used (anonymized); no example practice yet.
 
 ## Open decisions (as of 2026-11-01)
 
-1. Project setup in progress (stack decided, see "Work split"). Package layout still to agree with Owen.
+1. Maven project set up in `training-log/` (Java 21, JUnit 5.11.4; builds with `mvn test`). Packages agreed:
+   `model` (Vitor), `classifier` (Owen), `io` (CSV reading).
+   Owen suggested perceived effort (RPE) and closeness to a goal time; the team kept effort % from race best as the
+   only intensity measure (2026-11-02).
 2. Intensity = effort % from race best (decided). Storage decided 2026-11-02 (option A): the CSV stores raw data
    (athlete, stroke, distance, rest, rep times) and effort % is calculated in code from a separate race-best file
-   (athlete, distance, stroke, best time). Still open: how a set's effort combines its reps (e.g. average of rep
-   efforts); how reference categories are chosen independently of the rules.
+   (athlete, distance, stroke, best time). A set's effort = average of rep efforts (decided 2026-11-04).
+   Still open: how reference categories are chosen independently of the rules.
+   Swim set table (being designed with Vitor, 2026-11-04): athlete = short ID (e.g. A01, anonymous); stroke = one of
+   4 strokes (free, back, breast, fly; no IM); no equipment in the MVP (equipment = stretch goal / later change);
+   pool = short course yards (SCY) only; rep distance = any positive value (sets like 10x15 @ 60 exist); rep times in
+   seconds with hundredths; both the send-off interval and rest are stored.
+   Rest used by the classifier = AVERAGE rest of the set, where each rep's rest = send-off interval - rep time.
+   Why (to explain to Owen): rest differs rep by rep because slower reps leave less rest; the average is one number
+   per set for the tree, stays close to the rest the coach intended with the interval, and is not distorted by a
+   single slow or fast rep the way the shortest or longest rest would be.
+   If a rep time is longer than the interval, that rep's rest counts as 0 (the set is not rejected).
+   Each set stores its position in the workout (set 1, 2, ...). The athlete ID is stored on the workout (with the
+   date), not on each set.
+   Set effort % (classifier intensity) = AVERAGE of the rep efforts, each rep effort = best time / rep time x 100
+   (not the effort of the average time). Why: consistent with average rest, every rep counts equally (the coach says
+   each effort matters), simple to explain and test. Median is a possible later comparison.
+   Shared design doc for Owen: `docs/Data Model - Swim Set.docx` (2026-11-04).
+   Race/test best table (2026-11-04): a swimmer can have both a race best and a test best for the same stroke and
+   distance; effort % uses the race best when one exists, otherwise the test best. Each best records its start
+   (dive or push) for transparency only, no adjustment (push vs dive is a stated limitation). Only the latest best is
+   kept, with the date it was swum (replaced when the swimmer improves). A set with no matching best is skipped (not
+   classified) and reported as "missing reference time".
+   Key = athlete + stroke + distance + kind (RACE/TEST); start = DIVE/PUSH; date = when swum (not in the future).
+   Duplicate rows for the same key: use the faster time. Limitation accepted for the MVP: workouts before a best's
+   date are measured against the newer (faster) best; keeping dated history is a stretch goal (or fix manually).
+   Short reps (e.g. 15 or 25 yd) have no race distance, so the race-best table also holds "test bests" (fastest
+   practice time for that distance and stroke). Why (to explain to Owen, this is an addition to the project): effort %
+   needs a reference time for the same distance and stroke; without test bests, sprint sets of 15s and 25s could not be
+   classified, and scaling a 50 race best would be inaccurate (the first 25 of a 50 includes the start).
 3. Whether the pairing benchmark / doubling experiment comes back as the algorithms-and-performance part of the
    project, and where.
 4. Which matplotlib graphs to produce.
+   Idea to brainstorm later (Vitor, 2026-11-04): a Google Form sent to the team's sprint group to collect each
+   swimmer's sets and best times individually, exported to CSV as the project's data sets.
 5. Every deliverable needs an explicit AI-use statement, including "none used". No AI was used on the Sprint 1
    proposal itself; Claude was used from 2026-09-28 for repo tooling and planning.
