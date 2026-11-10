@@ -1,13 +1,13 @@
 package edu.augustana.traininglog.model;
 import java.util.List;
 
-public record SwimSet(int round, StrokeType stroke, int repDistance, double sendOffInterval, List<Double> repTimes) {
+public record SwimSet(int position, StrokeType stroke, double repDistance, double sendOffInterval, List<Double> repTimes) {
   // constructor with validation and then copy
   public SwimSet {
 
-    // check to see if round input is less than 1
-    if(round < 1) {
-      throw new IllegalArgumentException("set round must be at least 1.");
+    // check to see if position input is less than 1
+    if(position < 1) {
+      throw new IllegalArgumentException("set position must be at least 1.");
     }
 
     // check to see if the stroke input is null
@@ -15,7 +15,7 @@ public record SwimSet(int round, StrokeType stroke, int repDistance, double send
       throw new IllegalArgumentException("stroke type must be: FREESTYLE, BACKSTROKE, BREASTSTROKE or BUTTERFLY.");
     }
 
-    if(repDistance <= 0) {
+    if(repDistance <= 0.0) {
       throw new IllegalArgumentException("rep distance must be greater than 0.");
     }
 

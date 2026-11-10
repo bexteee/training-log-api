@@ -2,6 +2,7 @@ package edu.augustana.traininglog.model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,13 @@ class SwimSetTest {
     double averageRest = test.averageRest();
 
     assertEquals(1.0, averageRest, 0.001);
+  }
+
+  @Test 
+  void floatNumDIstance() {
+    SwimSet test = new SwimSet(1, StrokeType.FREESTYLE, 12.5, 30, List.of(8.0, 8.5, 9.0));
+
+    assertEquals(12.5, test.repDistance(), 0.001);
   }
 
   @Test

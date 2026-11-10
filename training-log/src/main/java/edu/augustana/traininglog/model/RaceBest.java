@@ -1,9 +1,9 @@
 package edu.augustana.traininglog.model;
 import java.time.LocalDate;
 
-public record RaceBest(String ID, StrokeType stroke, int distance, BestKind kind, StartType start, double time, LocalDate date) {
+public record RaceBest(String athleteId, StrokeType stroke, double distance, BestKind kind, StartType start, double time, LocalDate date) {
   public RaceBest {
-    if (ID == null || ID.isBlank()) {
+    if (athleteId == null || athleteId.isBlank()) {
       throw new IllegalArgumentException("ID must not be empty.");
     }
 
@@ -11,7 +11,7 @@ public record RaceBest(String ID, StrokeType stroke, int distance, BestKind kind
       throw new IllegalArgumentException("stroke type must be: FREESTYLE, BACKSTROKE, BREASTSTROKE or BUTTERFLY.");
     }
 
-    if(distance <= 0) {
+    if(distance <= 0.0) {
       throw new IllegalArgumentException("distance must be positive.");
     }
 
