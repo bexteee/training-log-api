@@ -5,7 +5,7 @@ public record SwimSet(int round, StrokeType stroke, int repDistance, double send
   // constructor with validation and then copy
   public SwimSet {
 
-    // check to see if round input are less than 1
+    // check to see if round input is less than 1
     if(round < 1) {
       throw new IllegalArgumentException("set round must be at least 1.");
     }
@@ -23,7 +23,7 @@ public record SwimSet(int round, StrokeType stroke, int repDistance, double send
       throw new IllegalArgumentException("send-off interval must be greater than 0");
     }
 
-    // reptTimes check 1: if the list is null
+    // repTimes check 1: if the list is null
     if(repTimes == null) {
       throw new IllegalArgumentException("rep times list must not be null.");
     }
@@ -42,7 +42,7 @@ public record SwimSet(int round, StrokeType stroke, int repDistance, double send
       }
     }
 
-    // giving tthe set its own and unmodifiable list.
+    // giving the set its own and unmodifiable list.
     repTimes = List.copyOf(repTimes);
   }
 

@@ -2,7 +2,9 @@
 
 Semester CS course project (algorithms/data structures, performance analysis). Team: Vitor Sa, Owen Bartee
 (Andy left the group in October 2026). Instructor: Marcus Birkenkrahe.
-Java is the primary language; Python is used only for matplotlib plots.
+Java is the core language (data model, effort %, decision tree). Python is a wrapper around it (decided 2026-11-09,
+confirmed with the instructor): it reads and cleans the CSV files (e.g. Google Forms exports), passes the data to Java,
+and handles the output (agreement %, matplotlib graphs). Vitor writes the Python wrapper.
 
 ## Current plan (from the Sprint 2 literature review, 2026-11-01)
 
@@ -132,7 +134,9 @@ He agreed his plans can be used (anonymized); no example practice yet.
 ## Open decisions (as of 2026-11-01)
 
 1. Maven project set up in `training-log/` (Java 21, JUnit 5.11.4; builds with `mvn test`). Packages agreed:
-   `model` (Vitor), `classifier` (Owen), `io` (CSV reading).
+   `model` (Vitor), `classifier` (Owen), `io` (CSV reading). With the Python wrapper, the messy CSV reading moves to
+   Python; still open: exactly how Python passes the data to Java (e.g. a clean CSV file + `java -jar` via subprocess)
+   and what remains in the Java `io` package.
    Owen suggested perceived effort (RPE) and closeness to a goal time; the team kept effort % from race best as the
    only intensity measure (2026-11-02).
 2. Intensity = effort % from race best (decided). Storage decided 2026-11-02 (option A): the CSV stores raw data
