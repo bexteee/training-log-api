@@ -2,7 +2,6 @@ package edu.augustana.traininglog.model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;

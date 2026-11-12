@@ -94,6 +94,22 @@ When a session produces something the team adopts, remind the user to add a disc
 - Classifier input fields (2026-11-02): distance, intensity, rest. Intensity = effort % calculated from the swimmer's
   race best (race best / actual time x 100).
 
+## Vitor's task plan (made 2026-11-11, by priority)
+
+Done on branch `data-model`: enums (StrokeType, BestKind, StartType), RaceBest, SwimSet, Workout (+ tests for the first
+three; WorkoutTest in progress, helper `setAtPosition`).
+1. Finish WorkoutTest (13 cases), fix pom (`maven.compiler.release` 21), commit + push.
+2. Sync with Owen: status of his tree; handover contract (distance, average rest, effort % per set); clean CSV
+   columns; performance experiment (e.g. hash lookup vs list search) yes/no.
+3. Best-time lookup (HashMap, record key, Optional; race > test > none; duplicates -> faster) + set effort % + tests.
+4. Open the pull request data-model -> main for Owen's review.
+5. Example data: hand-written clean CSVs (10-20 sets, best times); test set with reference categories from the
+   literature, decided independently of Owen's rules (with Owen).
+6. Java entry point: read clean CSVs, build objects, run the tree, write results CSV; `mvn package` -> jar
+   (needs Owen's tree).
+7. Python wrapper: raw CSV -> clean CSV (time conversion), run the jar via subprocess, agreement % + first graph.
+8. Later: Google Form; AI-use disclosure notes for Sprint 3.
+
 ## Data model decisions (2026-10-27)
 
 Made for the earlier plan. The set-level fields still inform the MVP's logging format; the pairing and scoring
@@ -158,6 +174,14 @@ He agreed his plans can be used (anonymized); no example practice yet.
    (not the effort of the average time). Why: consistent with average rest, every rep counts equally (the coach says
    each effort matters), simple to explain and test. Median is a possible later comparison.
    Shared design doc for Owen: `docs/Data Model - Swim Set.docx` (2026-11-04).
+   Workout design (2026-11-10): a mixed set (e.g. 6x12.5 @30 + 100 easy + broken 100 + ..., swum twice) is split into
+   parts, each part = one SwimSet (one distance, stroke, interval), logged in order; a repeated set continues the
+   positions (second time through = next numbers). Easy swims between efforts are NOT logged (treated like
+   warm-up/cool-down). Recovery practices ARE logged (their sets are easy swimming, low effort). A workout has at
+   least one set. Set positions in a workout must have no gaps and no duplicates (1, 2, 3, ...).
+   Rep distance (and best-time distance) changes from int to double so 12.5 yd can be logged.
+   In code the SwimSet position field is currently named `round` (suggested rename to `position`: "round" now
+   sounds like a repetition of a set).
    Race/test best table (2026-11-04): a swimmer can have both a race best and a test best for the same stroke and
    distance; effort % uses the race best when one exists, otherwise the test best. Each best records its start
    (dive or push) for transparency only, no adjustment (push vs dive is a stated limitation). Only the latest best is
