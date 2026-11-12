@@ -1,6 +1,6 @@
 # Compliance Metric
 
-How the Training Log API turns a sprinter's logged training into numbers that show how closely it followed the plan.
+How the Training Log Project turns a sprinter's logged training into numbers that show how closely it followed the plan.
 
 > Status: decided by Vitor on 2026-10-27; set averaging confirmed by Vitor and Owen on 2026-11-01.
 > Since the Sprint 2 literature review (2026-11-01), this metric belongs to the **stretch goals** (alignment score,

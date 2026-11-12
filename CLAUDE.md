@@ -1,4 +1,8 @@
-# Training Log API
+# Training Log Project
+
+Project name since 2026-11-12: "Training Log Project" (training-log-project). It is a rule-based classification
+program (Java core + Python wrapper), not an API. GitHub repository: https://github.com/bexteee/training-log-project
+(renamed from training-log-api on 2026-11-12; the local folder may still be called `training-log-api`).
 
 Semester CS course project (algorithms/data structures, performance analysis). Team: Vitor Sa, Owen Bartee
 (Andy left the group in October 2026). Instructor: Marcus Birkenkrahe.
